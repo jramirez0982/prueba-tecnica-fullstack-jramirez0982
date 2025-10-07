@@ -9,8 +9,8 @@ export const Navbar = () => {
 				<span className="navbar-brand mb-0 h1">Prueba Técnica Julian Andres Ramirez</span>
 
 				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Adicionar usuario</button>
+					<Link to="/add-user">
+						<button className="btn btn-primary">Crear Usuario</button>
 					</Link>
 				</div>
 			</div>
