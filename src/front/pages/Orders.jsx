@@ -64,7 +64,34 @@ export const Orders = () => {
 
            <div className="container d-flex flex-column py-3">
                         {
-                            
+                            <div className="table-responsive">
+          <table className="table table-bordered table-hover text-center align-middle">
+            <thead className="table-light">
+              <tr>
+                <th>Nro. de Órden</th>
+                <th>Vehículo</th>
+                <th>Mecanico</th>
+                <th>Servicios</th>
+                <th>Fecha de ingreso</th>
+                <th>Fecha de salida</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {order.map((orden) => (
+                <tr key={orden.id}>
+                  <td>orden.id_ot</td>
+                  <td>orden.matricula_vehiculo</td>
+                  <td>orden.nombre_mecanico</td>
+                  <td>orden.servicios_asociados.map(s = s.servicio.name_service).join(", ")</td>
+                  <td>orden.fecha_ingreso.slice(0, 16)</td>
+                  <td>orden.fecha_final ? String(orden.fecha_final).slice(0, 16) : ""</td>
+                  <td>getEstadoBadge(orden.estado_servicio)</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
            
                         }
                         
