@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, Date, Integer, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 import datetime
 from typing import List
 
@@ -41,6 +41,17 @@ class Order(db.Model):
 
     #RELACIONES
     user: Mapped["User"] = relationship(foreign_keys=[usuario_id], back_populates="ordenes_usuario")
+
+    @validates('amount')
+    def validate_amount_positive(self, key, amount):
+        #Valida que la cantidad (amount) sea siempre mayor que cero.
+        if amount is None or amount <= 0:
+            # Lanza un error si la cantidad es cero o negativa
+            raise ValueError("La cantidad (amount) debe ser un número entero positivo mayor que cero.")
+        
+        # Debe retornar el valor si la validación es exitosa
+        return amount
+
 
     def __str__(self):
         return f'{self.product_name}'
