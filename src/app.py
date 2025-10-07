@@ -81,6 +81,43 @@ def get_all_users():
     return jsonify({'msg': 'ok', 'usuarios': user_serialized}), 200
 
 
+@app.route('/create_user', methods=['POST'])
+def crear_usuario():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify({'msg': 'debes enviar informacion del usuario a crear'}), 400
+    if 'name' not in body:
+        return jsonify({'msg': 'Debes enviar un nombre en el body'}), 400
+    if 'email' not in body:
+        return jsonify({'msg': 'debes enviar un correo en el body'}), 400
+    if 'created_at' not in body:
+        return jsonify({'msg': 'debes indicar la fecha de creacion del usuario'}), 400
+
+    new_user = User()
+    new_user.name = body['name']
+    new_user.email = body['email']
+    new_user.created_at = body['created_at']
+
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'msg': 'ok', 'Usuario': new_user.serialize()})
+
+@app.route('/all_orders', methods = ['GET'])
+def get_orders():
+    orders = Order.query.all()
+    orders_serialized = []
+
+    for order in orders:
+        orders_serialized.append(order.serialize())
+
+    print("estos son las ordenes")
+    print(orders_serialized)
+    return jsonify({'msg': 'ok', 'ordenes': orders_serialized}), 200
+
+
+
+
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
