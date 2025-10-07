@@ -18,7 +18,7 @@ class User(db.Model):
     ordenes_usuario: Mapped[List["Order"]] = relationship(foreign_keys="Order.usuario_id", back_populates="user")
     
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.name}'
 
 
     def serialize(self):
