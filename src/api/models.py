@@ -26,8 +26,8 @@ class User(db.Model):
             "id": self.id,
             "name": self.name,
             "email": self.email,
-            "created_at": self.created_at,
-            "ordenes_usuario": self.ordenes_usuario
+            "created_at": self.created_at
+            #"ordenes_usuario": self.ordenes_usuario
         }
 
 

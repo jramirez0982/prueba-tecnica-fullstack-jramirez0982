@@ -6,10 +6,12 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db, User, Order
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+
+from flask_cors import CORS
 
 # from models import Person
 
@@ -17,6 +19,8 @@ ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../dist/')
 app = Flask(__name__)
+CORS(app)
+
 app.url_map.strict_slashes = False
 
 # database condiguration
@@ -64,6 +68,17 @@ def serve_any_other_file(path):
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0  # avoid cache memory
     return response
+
+@app.route('/all_users', methods=['GET'])
+def get_all_users():
+    users = User.query.all()
+    user_serialized = []
+
+    for user in users:
+        user_serialized.append(user.serialize())
+    print("estos son los usuarios")
+    print(user_serialized)
+    return jsonify({'msg': 'ok', 'usuarios': user_serialized}), 200
 
 
 # this only runs if `$ python src/main.py` is executed
