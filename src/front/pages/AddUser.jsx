@@ -49,15 +49,17 @@ export const AddUser = () => {
     return true;
 }
 
-  let correoValido = (esFormatoCorreoValido(newUser.email))
+  
 
 
   function createContact(e) {
     e.preventDefault();
-    
+    let correoValido = (esFormatoCorreoValido(newUser.email))
     if(!correoValido) {
-      alert("El informacion ingresada en email corresponde a una direccion de correo valida ")
+      alert("El informacion ingresada en email no corresponde a una direccion de correo valida, revise e ingrese de nuevo el email ")
+      return
     }
+
     console.log("Inicio operaciones desde la API")
     console.log(newUser)
     
