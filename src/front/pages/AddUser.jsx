@@ -67,10 +67,10 @@ export const AddUser = () => {
           onChange={(e)=>{setNewUser({...newUser, email:e.target.value})}} />
 
           <label for="creado_en" className='form-label d-flex align-items-start mt-3 mb-0 fst-italic'>Fecha de creación</label>
-          <input type="date"  id='creado_es' className='form-control' placeholder='Ingrese fecha de creacion de la orden' name='creado_en' value={newUser.created_at} 
+          <input type="date"  id='creado_es' className='form-control' placeholder='Ingrese fecha de creacion del usuario' name='creado_en' value={newUser.created_at} 
           onChange={(e)=>{setNewUser({...newUser, created_at:e.target.value})}} />
 
-          <button type='submit' className="btn btn-primary mt-3">Create contact</button>
+          <button type='submit' className="btn btn-primary mt-3">Crear Usuario</button>
 
         </form>
 

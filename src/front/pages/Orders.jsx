@@ -29,6 +29,7 @@ export const Orders = () => {
             console.log("estoy trayendo los usuarios a mi pagina")
             console.log(data.ordenes)
             setOrder(data.ordenes)
+            console.log(order)
         })
         .catch((error)=>{error})
     }
@@ -51,7 +52,7 @@ export const Orders = () => {
 					<Link to="/">
 						<button className="btn btn-primary">Regresar</button>
 					</Link>
-					<Link to="/add-user">
+					<Link to="/nueva-orden">
 						<button className="btn btn-primary ms-3">Crear orden</button>
 					</Link>
 				</div>
@@ -69,24 +70,20 @@ export const Orders = () => {
             <thead className="table-light">
               <tr>
                 <th>Nro. de Órden</th>
-                <th>Vehículo</th>
-                <th>Mecanico</th>
-                <th>Servicios</th>
-                <th>Fecha de ingreso</th>
-                <th>Fecha de salida</th>
-                <th>Estado</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Fecha de creación</th>
+                <th>Usuario</th>
               </tr>
             </thead>
             <tbody>
               {order.map((orden) => (
                 <tr key={orden.id}>
-                  <td>orden.id_ot</td>
-                  <td>orden.matricula_vehiculo</td>
-                  <td>orden.nombre_mecanico</td>
-                  <td>orden.servicios_asociados.map(s = s.servicio.name_service).join(", ")</td>
-                  <td>orden.fecha_ingreso.slice(0, 16)</td>
-                  <td>orden.fecha_final ? String(orden.fecha_final).slice(0, 16) : ""</td>
-                  <td>getEstadoBadge(orden.estado_servicio)</td>
+                  <td>{orden.id_order}</td>
+                  <td>{orden.product_name}</td>
+                  <td>{orden.amount}</td>
+                  <td>{orden.created_at.slice(0,16)}</td>
+                  <td>{orden.user.name}</td>
                 </tr>
               ))}
             </tbody>
