@@ -13,9 +13,35 @@ const [newOrder, setNewOrder] = useState({
     usuario_id:""
   })
 
-  function createOrder(e) {
-   
+   function createOrder(e) {
+    e.preventDefault();
+ 
+    console.log("ESTOY HAICENDO OPERACIONES EN LA API desde la funcion")
+    console.log(newOrder)
+    newOrder.amount = parseInt(newOrder.amount)
+    
+    fetch(import.meta.env.VITE_BACKEND_URL + 'create-order', {
+      method: "POST",
+      body: JSON.stringify(newOrder),
+      headers: {
+					'Content-Type': 'application/json'
+				}
+
+    })
+			.then((response) => {
+				if (!response.ok) throw new Error("Error al crear la orden")
+				return response.json()
+			})
+			.then((data) => {
+				console.log(data)
+				navigate("/orders")
+			})
+			.catch((error) => {
+				console.log(error)
+        alert("ojo hay error")
+			})
   }
+
 
    function getAllUser(){
 		fetch(import.meta.env.VITE_BACKEND_URL + "all_users", {
