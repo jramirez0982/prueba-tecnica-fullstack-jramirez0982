@@ -11,7 +11,7 @@ export const UsuarioCard = (props) => {
   return (
     <div>
       
-      <div className="card border border-2 border-primary mb-3 rounded-4" style={{ Width: "100%" }}>
+      <div className="perfil-card card border border-2 border-primary mb-3 rounded-4" style={{ Width: "100%" }}>
         <div id="alert-container"></div>
         <div className="row g-0">
           <div className="col-md-4 d-flex align-items-center justify-content-center">
