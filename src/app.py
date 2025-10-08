@@ -139,6 +139,22 @@ def create_orders():
 
     return jsonify({'msg': 'ok', 'nueva_orden': new_order.serialize()})
     
+@app.route('/order-by-user/<int:id_usuario>', methods=['GET'])
+def get_user_by_id(id_usuario):
+    ordenes= Order.query.filter_by(usuario_id=id_usuario).all()
+
+    orders_serialized = []
+
+    for orden in ordenes:
+        orders_serialized.append(orden.serialize())
+
+    print("estos son las ordenes por usuario")
+    print(orders_serialized)
+    return jsonify({'msg': 'ok', 'ordenes': orders_serialized}), 200
+
+
+
+
 
 
 # this only runs if `$ python src/main.py` is executed
