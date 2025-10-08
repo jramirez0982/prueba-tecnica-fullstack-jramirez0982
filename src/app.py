@@ -114,8 +114,31 @@ def get_orders():
     print(orders_serialized)
     return jsonify({'msg': 'ok', 'ordenes': orders_serialized}), 200
 
+@app.route('/create-order', methods = ['POST'])
+def create_orders():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify({'msg': 'debes enviar informaicon de la orden en el body'}), 400
+    if 'product_name' not in body:
+        return jsonify({'msg': 'Debes enviar el nombre del producto'}), 400
+    if 'amount' not in body:
+        return jsonify({'msg': 'Debes enviar la cantidad de productos'}), 400
+    if 'created_at' not in body:
+        return jsonify({'msg': 'Debes enviar fecha de creacion de la orden'}), 400
+    if 'usuario_id' not in body:
+        return jsonify({'msg': 'debes enviar el usuario que genera la orden'}), 400
+    
+    new_order = Order()
+    new_order.product_name = body['product_name']
+    new_order.amount = body['amount']
+    new_order.created_at = body['created_at']
+    new_order.usuario_id = body['usuario_id']
 
+    db.session.add(new_order)
+    db.session.commit()
 
+    return jsonify({'msg': 'ok', 'nueva_orden': new_order.serialize()})
+    
 
 
 # this only runs if `$ python src/main.py` is executed

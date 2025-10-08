@@ -17,11 +17,7 @@ const [newOrder, setNewOrder] = useState({
    
   }
 
-  function handleChange(e){
-
-  }
-
-  function getAllUser(){
+   function getAllUser(){
 		fetch(import.meta.env.VITE_BACKEND_URL + "all_users", {
 
 			method: "GET",
