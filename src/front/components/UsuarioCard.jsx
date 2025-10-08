@@ -69,12 +69,12 @@ export const UsuarioCard = (props) => {
           <div className="col-md-2 p-4">
 
 
-            
+            <Link to="/orden-usuario">
             <button onClick={() => {
-              console.log(props.id_vehiculo)
-              eliminarVehiculo(props.id_vehiculo)
-            }} className='btn btn-light my-2 mx-5'><i className="fa-solid fa-trash"></i></button>
-
+              console.log(props.id_user)
+              eliminarVehiculo(props.id_user)
+            }} className='btn btn-light my-2 mx-0'>Mis ordenes</button>
+            </Link>
 
           </div>
         </div>

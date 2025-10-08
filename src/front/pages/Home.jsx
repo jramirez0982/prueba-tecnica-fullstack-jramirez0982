@@ -51,7 +51,7 @@ export const Home = () => {
 					user.map((usuario, index)=>{
 
 						return(
-							<UsuarioCard key={usuario.id} name={usuario.name} email={usuario.email} fecha_creacion={usuario.created_at.slice(0, 16)} />
+							<UsuarioCard id_user={usuario.id} name={usuario.name} email={usuario.email} fecha_creacion={usuario.created_at.slice(0, 16)} />
 						)
 
 					})
