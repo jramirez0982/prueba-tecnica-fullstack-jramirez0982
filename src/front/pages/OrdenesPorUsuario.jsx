@@ -4,14 +4,18 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { Link } from "react-router-dom";
 import { UsuarioCard } from "../components/UsuarioCard.jsx";
+import { useParams } from 'react-router-dom'
 
 export const OrdenesPorUsuario = () => {
 
-
-    const [user, setUser] = useState([])
-
-    function getAllUser(){
-        fetch(import.meta.env.VITE_BACKEND_URL + "all_users", {
+    const [order, setOrder] = useState([])
+    const params = useParams();
+    console.log("voy a imprimir el id")
+    console.log(params.id_user)
+    
+     
+     function getOrdersByUser(){
+        fetch(import.meta.env.VITE_BACKEND_URL + "order-by-user/" + params.id_user, {
 
             method: "GET",
             headers: {
@@ -20,49 +24,86 @@ export const OrdenesPorUsuario = () => {
         })
         .then((response)=>{
             if (!response.ok){
-                alert("error en lectura de datos")
+                alert("error en lectura de datos primer error")
             }	
             return response.json()
         })
 
         .then((data)=>{
-            console.log("estoy trayendo los usuarios a mi pagina")
-            console.log(data.usuarios)
-            setUser(data.usuarios)
+            console.log("estoy trayendo las ordenes de un usuario a mi pagina")
+            console.log(data.ordenes)
+            setOrder(data.ordenes)
+            console.log(order)
         })
-        .catch((error)=>{error})
+        .catch((error)=>{
+            alert("error al traer los datos")
+        })
     }
 
 
     useEffect(()=>{
-        getAllUser()
+        getOrdersByUser()
     }, [])
 
     return(
-        
-        <div>
-            <Navbar/>	
-            <div className="mt-4 text-center">
-                <h1 className="mt-5 p-5">HOLA HOLA</h1>
-            </div>
-
-            <div className="container d-flex flex-column py-3">
-                {
-                    user.map((usuario, index)=>{
-
-                        return(
-                            <UsuarioCard id_user={usuario.id} name={usuario.name} email={usuario.email} fecha_creacion={usuario.created_at.slice(0, 16)} />
-                        )
-
-                    })
-
-                }
                 
-
-
-            </div>
-
-        </div>
+                <div>
+                    <div>
+                        <nav className="fixed-top navbar navbar-expand-lg navbar-dark shadow-sm ms-2 me-2 px-3" style={{ backgroundColor: '#003366', borderRadius: '15px' }}>
+                    <div className="container">
         
+                        <span className="navbar-brand mb-0 h1">Prueba Técnica Julian Andres Ramirez</span>
+        
+                        <div className="ml-auto">
+                            <Link to="/">
+                                <button className="btn btn-primary">Regresar</button>
+                            </Link>
+                            <Link to="/nueva-orden">
+                                <button className="btn btn-primary ms-3">Crear orden</button>
+                            </Link>
+                        </div>
+                    </div>
+                </nav>
+                    </div>	
+                    <div className="mt-4 text-center">
+                        <h1 className="mt-5 p-5">Lista de ordenes de servicio</h1>
+                    </div>
+        
+                   <div className="container d-flex flex-column py-3">
+                                {
+                                    <div className="table-responsive">
+                  <table className="table table-bordered table-hover text-center align-middle">
+                    <thead className="table-light">
+                      <tr>
+                        <th>Nro. de Órden</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de creación</th>
+                        <th>Usuario</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {order.map((orden) => (
+                        <tr key={orden.id}>
+                          <td>{orden.id_order}</td>
+                          <td>{orden.product_name}</td>
+                          <td>{orden.amount}</td>
+                          <td>{orden.created_at.slice(0,16)}</td>
+                          <td>{orden.user.name}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                   
+                                }
+                                
+                   
+                   
+                            </div>
+        
+                </div>
+                
+                 
     )
 }; 

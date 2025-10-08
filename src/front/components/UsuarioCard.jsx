@@ -1,6 +1,6 @@
 import React from 'react'
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
@@ -12,43 +12,7 @@ export const UsuarioCard = (props) => {
 
   function eliminarVehiculo(id_vehiculo) {
 
-    const token = localStorage.getItem("jwt_token")
-    fetch(import.meta.env.VITE_BACKEND_URL + `eliminar_vehiculo/${id_vehiculo}`, {
-      method: "DELETE",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token //localStorage.getItem('token') // JWT
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        if (data.msg === 'Vehículo eliminado correctamente') {
-          //alert('Vehículo eliminado con éxito')
-          console.log("Navegando a /vehiculos...")
-          props.onDelete();
-          //navigate('/vehiculos') //window.location.href = '/vehiculos'
-          console.log("despues de navigate")
-        } else {
-          alert(data.msg)
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error)
-        //alert('Hubo un error al intentar eliminar el vehículo')
-
-        const alertContainer = document.getElementById("alert-container");
-    alertContainer.innerHTML = `
-    <div class="alert alert-danger" role="alert">
-      El vehiculo no pudo ser eliminado porque esta asociado a una orden de trabajo.
-    </div>
-  `;
-    setTimeout(() => {
-    alertContainer.innerHTML = "";
-    }, 5000);
-
-
-      })
+    
   }
   return (
     <div>
@@ -69,7 +33,7 @@ export const UsuarioCard = (props) => {
           <div className="col-md-2 p-4">
 
 
-            <Link to="/orden-usuario">
+            <Link to={`/orden-usuario/${props.id_user}`}>
             <button onClick={() => {
               console.log(props.id_user)
               eliminarVehiculo(props.id_user)

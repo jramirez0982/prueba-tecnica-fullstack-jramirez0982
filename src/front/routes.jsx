@@ -32,7 +32,7 @@ export const router = createBrowserRouter(
         <Route path="/add-user" element={<AddUser />} />
         <Route path="/orders" element={<Orders/>} />
         <Route path="/nueva-orden" element={<NuevaOrden/>} />
-        <Route path="/orden-usuario/" element={<OrdenesPorUsuario/>} />
+        <Route path="/orden-usuario/:id_user" element={<OrdenesPorUsuario/>} />
       </Route>
     )
 );
