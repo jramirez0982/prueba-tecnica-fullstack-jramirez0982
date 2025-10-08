@@ -20,7 +20,7 @@ export const Home = () => {
 		})
 		.then((response)=>{
 			if (!response.ok){
-				alert("error en lectura de datos")
+				alert("error en lectura de la base de datos de usuarios")
 			}	
 			return response.json()
 		})
@@ -30,7 +30,9 @@ export const Home = () => {
 			console.log(data.usuarios)
 			setUser(data.usuarios)
 		})
-		.catch((error)=>{error})
+		.catch((error)=>{
+			alert("Error al leer los usuarios en la base de datos")
+		})
 	}
 
 
@@ -43,7 +45,8 @@ export const Home = () => {
 		<div>
 			<Navbar/>	
 			<div className="mt-4 text-center">
-				<h1 className="mt-5 p-5">Lista de usuarios</h1>
+				<h1 className="mt-5 pt-5">Lista de usuarios</h1>
+				<h4 className="mt-0 pb-4">Si no hay usuarios puedes crearlos</h4>
 			</div>
 
 			<div className="container d-flex flex-column py-3">

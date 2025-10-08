@@ -16,7 +16,7 @@ const [newOrder, setNewOrder] = useState({
    function createOrder(e) {
     e.preventDefault();
  
-    console.log("ESTOY HAICENDO OPERACIONES EN LA API desde la funcion")
+    console.log("ESTOY HAICENDO OPERACIONES EN LA API")
     console.log(newOrder)
     newOrder.amount = parseInt(newOrder.amount)
     
@@ -38,7 +38,7 @@ const [newOrder, setNewOrder] = useState({
 			})
 			.catch((error) => {
 				console.log(error)
-        alert("ojo hay error")
+        alert("Se produjo un error al crear la orden de servicio, verifique que la cantidad sea mayor a 0")
 			})
   }
 

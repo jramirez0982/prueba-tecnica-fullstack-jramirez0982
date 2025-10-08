@@ -7,13 +7,7 @@ import { useEffect, useState } from "react";
 
 export const UsuarioCard = (props) => {
 
-
-  const navigate = useNavigate()
-
-  function eliminarVehiculo(id_vehiculo) {
-
-    
-  }
+  
   return (
     <div>
       
@@ -36,8 +30,7 @@ export const UsuarioCard = (props) => {
             <Link to={`/orden-usuario/${props.id_user}`}>
             <button onClick={() => {
               console.log(props.id_user)
-              eliminarVehiculo(props.id_user)
-            }} className='btn btn-light my-2 mx-0'>Mis ordenes</button>
+            }} className='btn btn-primary my-2 mx-0'>Mis ordenes</button>
             </Link>
 
           </div>
